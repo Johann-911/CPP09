@@ -11,7 +11,10 @@ BitcoinExchange::BitcoinExchange(const BitcoinExchange &copy)
 
 BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &copy)
 {
-    (void)copy;
+    if(this != &copy)
+    {
+        _database = copy._database;
+    }
     return *this;
 }
 
@@ -59,7 +62,7 @@ void BitcoinExchange::processInput(std::string input)
         std::string::size_type pipe = line.find('|');
         if(pipe == std::string::npos)
         {
-            std::cerr << "Error: bad input => " << line <<  std::endl;
+            std::cout << "Error: bad input => " << line <<  std::endl;
             continue;
         }
         std::string date = line.substr(0, pipe);
@@ -71,17 +74,17 @@ void BitcoinExchange::processInput(std::string input)
         stream >> value;
         if(value < 0 )
         {
-            std::cerr << "Error: not a positive number" << std::endl;
+            std::cout << "Error: not a positive number" << std::endl;
             continue;
         }
         if(value > 1000 )
         {
-            std::cerr << "Error: too large number" << std::endl;
+            std::cout << "Error: too large number" << std::endl;
             continue;
         }
         if(!isValidDate(date))
         {
-            std::cerr << "Error: bad input => " << line << std::endl;
+            std::cout << "Error: bad input => " << line << std::endl;
             continue;
         }   
         std::map<std::string, double>::iterator iterator;
@@ -94,7 +97,7 @@ void BitcoinExchange::processInput(std::string input)
             iterator = _database.lower_bound(date);
             if(iterator == _database.begin())
             {
-                std::cerr << "Error: bad input => " << line << std::endl;
+                std::cout << "Error: bad input => " << line << std::endl;
                 continue;
             }
             else
