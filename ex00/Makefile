@@ -1,5 +1,5 @@
 CPP = c++
-CXXFLAGS = -Wall -Wextra -Werror -std=c++11
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 NAME = ./btc
 
 SRCS = main.cpp BitcoinExchange.cpp
@@ -25,4 +25,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean reCPP = c++
+.PHONY: all clean fclean re
