@@ -60,7 +60,69 @@ void PmergeMe::validateArgs(int ac, char **av)
 
 void PmergeMe::sortDeque()
 {
+    int first, second, rest;
+    std::deque<int> _winnersQue;
+    std::deque<int> _losersQue;
+    std::deque<int> mainChain;
+    std::deque<int> pending;
+    std::deque< std::pair<int, int> > pairs;
+    int i = 0;
+
+    while(i + 1 < _dequeContainer.size())
+    {
+        first = _dequeContainer[i];
+        second = _dequeContainer[i + 1];
+        if(first > second)
+        {
+            _winnersQue.push_back(first);
+            _losersQue.push_back(second);
+        }
+        else
+        {
+            _winnersQue.push_back(second);
+            _losersQue.push_back(first);
+        }
+        while()
+        {
+            for (std::deque< std::pair<int, int> >::iterator it = pairs.begin(); it != pairs.end(); ++it)
+            {
+                pairs.first = _winnersQue[0];
+                pairs.second = _losersQue[0];
+            }
+
+        }
+        i += 2;
+    }
+    if(i < _dequeContainer.size())
+    {
+        rest = _dequeContainer[i];
+    }
+    i = 0;
+    _winnersQue.sortDeque();
+    while(i + 1 < _winnersQue.size())
+    {
+        mainChain[i] = _winnersQue[i];
+    }
+    _losersQue.sortDeque();
+    while(i + 1 < _losersQue.size())
+    {
+        pending[i] = _losersQue[i];
+    }
 
 
 
+}
+
+void PmergeMe::sortVector()
+{
+
+
+
+}
+
+void PmergeMe::printTimer()
+{
+
+
+    
 }
