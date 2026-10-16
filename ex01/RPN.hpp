@@ -5,6 +5,8 @@
 #include <string>
 #include <stdexcept>
 #include <exception>
+#include <stack>
+#include <list>
 #include <stdbool.h>
 #include <climits>
 #include <fstream>
@@ -18,7 +20,7 @@
 class RPN 
 {
     private:
-        std::stack<int> _stack;
+        std::stack<int, std::list<int> > _stack;
     
     public:
         RPN();
