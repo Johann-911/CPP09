@@ -29,12 +29,78 @@ class PmergeMe
 
         void parseInput(std::string numbers);
         void validateArgs(int ac, char **av);
-        void sortVector();
-        void sortDeque();
+        std::vector<int> sortVector();
+        std::deque<int> sortDeque();        
+        std::size_t jacobsthal(std::size_t n) const;
+        std::deque<std::size_t> buildInsertionOrder(std::size_t count) const;
         void printTimer();
+        
+        template <typename Container>
+        Container mergeInsertSort(const Container &values)
+        {
+            int rest = 0;
+            bool hasRest = false;
+            Container mainChain;
+            std::size_t index = 0;
+            std::vector< std::pair<int, int> > pairs;
+            if (values.size() <= 1)
+                return values;    
+            while (index + 1 < values.size())
+            {
+                int first = values[index];
+                int second = values[index + 1];
+                int winner = first;
+                int loser = second;
 
+                if (winner < loser)
+                {
+                    winner = second;
+                    loser = first;
+                }
+                mainChain.push_back(winner);
+                pairs.push_back(std::make_pair(winner, loser));
+                index += 2;
+            }
+            
+            if (index < values.size())
+            {
+                rest = values[index];
+                hasRest = true;
+            }
+            
+            Container sortedChain = mergeInsertSort(mainChain);
+            std::deque<std::size_t> order = buildInsertionOrder(pairs.size());
 
-
+            for (std::size_t orderIndex = 0; orderIndex < order.size(); ++orderIndex)
+            {
+                std::size_t pairIndex = order[orderIndex];
+                int winner = pairs[pairIndex].first;
+                int loser = pairs[pairIndex].second;
+            
+                typename Container::iterator winnerPosition = sortedChain.begin();
+                while (winnerPosition != sortedChain.end() && *winnerPosition != winner)
+                {
+                    ++winnerPosition;
+                }
+            
+                typename Container::iterator position = sortedChain.begin();
+                while (position != winnerPosition && *position < loser)
+                {
+                    ++position;
+                }
+                sortedChain.insert(position, loser);
+            }
+            
+            if (hasRest)
+            {
+                typename Container::iterator position = sortedChain.begin();
+                while (position != sortedChain.end() && *position < rest)
+                {
+                    ++position;
+                }
+                sortedChain.insert(position, rest);
+            }
+            return sortedChain;
+        }
 };
-
 #endif
