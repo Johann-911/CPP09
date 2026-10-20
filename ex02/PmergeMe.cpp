@@ -84,6 +84,7 @@ std::size_t PmergeMe::jacobsthal(std::size_t n) const
 }
 
 
+
 std::deque<std::size_t> PmergeMe::buildInsertionOrder(std::size_t count) const
 {
     std::deque<std::size_t> order;
