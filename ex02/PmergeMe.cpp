@@ -34,7 +34,7 @@ void PmergeMe::parseInput(std::string input)
     int number = 0;
     if(!(stream >> number))
     {
-        throw std::runtime_error("invalid argument, use a number");
+        throw std::runtime_error("invalid argument, use a valid number");
     }
     char extra;
     if(stream >> extra)
@@ -62,10 +62,8 @@ void PmergeMe::validateArgs(int ac, char **av)
 
 std::deque<int> PmergeMe::sortDeque()
 {
-
-
     std::deque<int> sortedResult = mergeInsertSort(_dequeContainer);
-   return sortedResult;
+    return sortedResult;
     
 }
 std::vector<int> PmergeMe::sortVector()
@@ -126,6 +124,7 @@ void PmergeMe::printTimer()
     std::chrono::high_resolution_clock::time_point vectorStart = std::chrono::high_resolution_clock::now();
     std::vector<int> sortedVector = sortVector();
     std::chrono::high_resolution_clock::time_point vectorEnd = std::chrono::high_resolution_clock::now();
+    
     std::cout << "After: ";
     for(std::vector<int>::size_type i = 0; i < sortedVector.size(); ++i)
     {

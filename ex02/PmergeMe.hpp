@@ -83,22 +83,33 @@ class PmergeMe
                     ++winnerPosition;
                 }
             
-                typename Container::iterator position = sortedChain.begin();
-                while (position != winnerPosition && *position < loser)
+                typename Container::iterator first = sortedChain.begin();
+                typename Container::iterator last = winnerPosition;
+                while (first != last)
                 {
-                    ++position;
+                    typename Container::iterator middle = first + (last - first) / 2;
+                    if(*middle < loser)
+                        first = middle + 1;
+                    else 
+                        last = middle; 
                 }
-                sortedChain.insert(position, loser);
+                sortedChain.insert(first, loser);
             }
             
             if (hasRest)
             {
-                typename Container::iterator position = sortedChain.begin();
-                while (position != sortedChain.end() && *position < rest)
+                typename Container::iterator first = sortedChain.begin();
+                typename Container::iterator last = sortedChain.end();
+                while (first != last)
                 {
-                    ++position;
+                    
+                    typename Container::iterator middle = first + (last - first) / 2;
+                    if(*middle < rest)
+                        first = middle + 1;
+                    else
+                        last = middle;
                 }
-                sortedChain.insert(position, rest);
+                sortedChain.insert(first, rest);
             }
             return sortedChain;
         }
